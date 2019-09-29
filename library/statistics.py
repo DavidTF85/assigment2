@@ -2,7 +2,7 @@
 # Values measured in degrees
 #but not yet as a funtion :S
 
-def get_maximum(human_imput)
+def get_maximum(Readings)
 maximum = 0
 minimum = 0
 i = 0

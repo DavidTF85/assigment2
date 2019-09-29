@@ -1,12 +1,13 @@
-Humidity_level = 61
+def get_humidity_level(Readings):
+    readings = humidity
 #imput from sensor
 
-if  Humidity_level < 30:
+if  get_humidity_level < 30:
     print("Dry")
 
-elif Humidity_level > 60:
+elif get_humidity_level > 60:
     print ("High Humidity")
 
 
-elif Humidity_level > 30 and Humidity_level < 60:
+elif get_humidity_level > 30 and get_humidity_level < 60:
     print("Ok")
