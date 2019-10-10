@@ -1,4 +1,10 @@
+#we import the librerys that will be require to the main console works
 import os
+#import library.statistics
+#import library.humidity
+#import library.tvoc
+#import library.co2
+import statistics
 #1st define de funtion to get the initial interface (task #6-1)
 #as well defince the constants require
 TEMPERATURE_ID = 1 #this is the ID number taht will be for each category
@@ -10,6 +16,7 @@ CO2_ID = 6
 
 temperature =TEMPERATURE_ID
 humidity = HUMIDITY_ID
+
 #Then set clases so then we can devide it by id,value and time for task 6-3 & 6-4
 class TimeSeriesData:
     id = 0
@@ -25,6 +32,38 @@ class Instrument:
     def add_datum(self,id,value,time):
         datum = TimeSeriesData(id,value,time)
         self.data.append(datum)
+        def get_values_by_id(self,id):
+            values = [] #append values by id
+            for datum in self.data:
+                if datum.id == id:
+                    values.append(datum.value)
+            return values
+
+    def get_mean_by_id(self,id):
+            values = self.get_values_by_id(id)
+            mean = statistics.mean(get_values)
+            return mean
+
+    def get_median_by_id(self,id):
+            values = self.get_values_by_id(id)
+            median = statistics.median(values)
+            return median
+
+    def get_value_by_id(self, id):
+            self.id = id
+            max_value = get_max_value()
+            min_value = get_min_value()
+
+    def print_list(self):
+        print("————————————————————————————————————————————")
+        print("Id " + "\t" + "Temp " + "\t" + "Pres" + "\t" + "Alt" + "\t" + "TVOC" + "\t" + "CO2")
+        print("————————————————————————————————————————————")
+        print(" ")
+        for datum in self.data:
+            print(str(datum.id) +"\t"+ str(datum.value) +"\t"+ str(datum.time))
+            print("\n ")
+            print("\n ")
+            print(" ")
 
 def get_user_input():
     print("_____________________________________________")
@@ -35,7 +74,7 @@ def get_user_input():
     print("(2) List readings")
     print("(3) Calculate")
     print("(4) Exit\n")
-    user_input = input("Input: ")
+    user_input = input("Please choice one option: ")
     os.system("clear")
     return user_input
 #here i made a funtion for get the interface if input=2 (task 6-2)
@@ -43,12 +82,12 @@ def get_user_input():
 #for later use in if imput =3 (task 6-3)
 def get_readings():
     print("Please input")
-    temperature = input("Temperature (degrees):  ")
+    temperature = input("Temperature (Degrees):  ")
     humidity = input("Humidity (%):  ")
     pressure= input("Pressure (kPa):  ")
-    altitude= input("Altitude (ft):  ")
-    TVOC= input("TVOC (ppb):  ")
-    co2= input("CO2 (ppm):  ")
+    altitude= input("Altitude (Fts):  ")
+    TVOC= input("TVOC (PPB):  ")
+    co2= input("CO2 (PPM):  ")
     readings = {
         "temperature": temperature,
         "humidity": humidity,
@@ -62,11 +101,13 @@ def get_readings():
     print("__________________________")
     print("Successfully saved reading")
     print("__________________________\n")
-    print("\nHit enter key to return to the menu")
+    print("\nPlease press any key to return to the menu")
     input()
 
     os.system("clear")
     return readings
+
+tool = Instrument()
 #here i made  a funtion for task 6-3
 #also a class with the custructor as well a secondari class od data & datum
 
@@ -103,6 +144,13 @@ def main():
     readings = []
 
     while main_loop_is_running:
+        temperature = []
+        humidity = []
+        pressure = []
+        altitude = []
+        tvoc = []
+        co2 = []
+        time = []
 
         user_input = get_user_input()
 
@@ -122,6 +170,7 @@ def main():
                 print("Humidity: ",Humidity_level in readings)
         elif user_input == "4":
             main_loop_is_running = False
+            print("Exit Successfully of Temperature Calculator! thank you :)")
 
 if __name__ == "__main__":
     main()
